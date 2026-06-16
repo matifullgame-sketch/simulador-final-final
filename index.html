@@ -292,6 +292,29 @@
                 <div style="font-size: 10.5pt; color: #27ae60; font-weight: bold; background-color: #e8f8f0; padding: 15px; border-radius: 8px; border: 1px solid #27ae60;" id="retire-alert">
                     ¡ACCIÓN COMPLETADA!<br><br>POR FAVOR, RETIRA TU PRODUCTO DE LA COMPUERTA INFERIOR
                 </div>
+<div id="screen-canje" class="screen-content" style="display: none;">
+    <div>
+        <div style="font-size: 11pt; font-weight: bold; margin-bottom: 15px; text-align: center;">TUS RECOMPENSAS</div>
+        
+        <!-- Nivel 1: 1 a 2 envases -->
+        <div id="nivel-1" style="display:none; margin-bottom: 10px;">
+            <button class="btn-primary" onclick="dispense('Refill Gratuito')">Canjear 1 Refill (Nivel 1)</button>
+        </div>
+
+        <!-- Nivel 2: 3 a 4 envases (Selección Independiente) -->
+        <div id="nivel-2" style="display:none; margin-bottom: 10px; padding: 10px; background: #f9f9f9; border-radius: 6px;">
+            <div style="font-size: 9pt; margin-bottom: 5px; text-align: center;">Elige tus recompensas (Nivel 2):</div>
+            <button class="btn-secondary" style="width: 100%; margin-bottom: 5px;" onclick="dispense('Muestra Gratis')">🎁 Muestra Gratis</button>
+            <button class="btn-secondary" style="width: 100%;" onclick="dispense('Espejo de Bolsillo')">🪞 Espejo de Bolsillo</button>
+        </div>
+
+        <!-- Nivel 3: 5 o más envases -->
+        <div id="nivel-3" style="display:none; margin-bottom: 10px;">
+            <button class="btn-primary" style="background-color: #7d6bb3;" onclick="dispense('Cosmetiquero Reciclado')">Canjear Cosmetiquero (Nivel 3)</button>
+        </div>
+    </div>
+    <button class="btn-secondary" style="width: 100%; border: none; color: #666; margin-top: 10px;" onclick="resetAll()">Cancelar</button>
+</div>
             </div>
         </div>
     </div>
@@ -392,24 +415,11 @@
     }
 
     function updatePrizeButtons() {
-        let btnRefill = document.getElementById('btn-prize-refill');
-        let btnObjeto = document.getElementById('btn-prize-objeto');
-
-        if(totalBandejas >= 2) {
-            btnRefill.classList.remove('btn-disabled');
-            btnRefill.disabled = false;
-        } else {
-            btnRefill.classList.add('btn-disabled');
-            btnRefill.disabled = true;
-        }
-
-        if(totalEnvases >= 1 || totalBandejas >= 4) {
-            btnObjeto.classList.remove('btn-disabled');
-            btnObjeto.disabled = false;
-        } else {
-            btnObjeto.classList.add('btn-disabled');
-            btnObjeto.disabled = true;
-        }
+        const total = totalEnvases + totalBandejas; // Asumiendo que ambos cuentan para el total
+        
+        document.getElementById('nivel-1').style.display = (total >= 1 && total <= 2) ? 'block' : 'none';
+        document.getElementById('nivel-2').style.display = (total >= 3 && total <= 4) ? 'block' : 'none';
+        document.getElementById('nivel-3').style.display = (total >= 5) ? 'block' : 'none';
     }
 
     function dispense(prizeName) {
