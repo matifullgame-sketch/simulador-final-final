@@ -3,221 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador Tótem Petrizzio RVM v2</title>
+    <title>Simulador Tótem Petrizzio RVM v3</title>
     <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-        }
-        body {
-            background-color: #f4f4f6;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .totem-container {
-            width: 420px;
-            background-color: #1a1a1a;
-            border-radius: 24px;
-            padding: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            border: 4px solid #333;
-        }
-        .screen {
-            background-color: #ffffff;
-            width: 100%;
-            height: 520px;
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            color: #111;
-        }
-        .screen-header {
-            background-color: #000000;
-            color: #ffffff;
-            padding: 15px;
-            text-align: center;
-            font-size: 14pt;
-            font-weight: bold;
-            letter-spacing: 2px;
-        }
-        .screen-content {
-            padding: 20px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .welcome-title {
-            font-size: 18pt;
-            text-align: center;
-            margin-top: 30px;
-            color: #000;
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
-        .welcome-subtitle {
-            font-size: 10pt;
-            text-align: center;
-            color: #666;
-            margin-bottom: 25px;
-        }
-        .btn-primary {
-            background-color: #000;
-            color: #fff;
-            border: none;
-            padding: 14px;
-            border-radius: 6px;
-            font-size: 11pt;
-            cursor: pointer;
-            width: 100%;
-            transition: background 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: bold;
-        }
-        .btn-primary:hover {
-            background-color: #333;
-        }
-        .eco-guide {
-            background-color: #f0edf5;
-            border-left: 4px solid #7d6bb3;
-            padding: 12px;
-            font-size: 9pt;
-            color: #4a4263;
-            border-radius: 0 6px 6px 0;
-            line-height: 1.4;
-            margin-top: 15px;
-        }
-        .counter-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 15px;
-            font-size: 9.5pt;
-        }
-        .counter-table th {
-            background-color: #f0f0f0;
-            text-align: left;
-            padding: 8px;
-            font-weight: bold;
-            border-bottom: 2px solid #ddd;
-        }
-        .counter-table td {
-            padding: 8px;
-            border-bottom: 1px solid #eee;
-        }
-        .total-badge {
-            background-color: #f4f0fa;
-            border: 1px solid #7d6bb3;
-            border-radius: 6px;
-            padding: 10px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 11pt;
-            margin-bottom: 15px;
-            color: #5c4d8c;
-        }
-        .btn-secondary {
-            background-color: #fff;
-            color: #000;
-            border: 1px solid #000;
-            padding: 10px;
-            border-radius: 6px;
-            font-size: 9pt;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .btn-secondary:hover {
-            background-color: #f0f0f0;
-        }
-        .btn-disabled {
-            background-color: #ccc !important;
-            color: #777 !important;
-            cursor: not-allowed !important;
-            border: none !important;
-        }
-        .hardware-slots {
-            margin-top: 15px;
-            border-top: 2px dashed #444;
-            padding-top: 15px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-        .hw-label {
-            color: #888;
-            font-size: 8pt;
-            text-align: center;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-        }
-        .hw-opening {
-            width: 120px;
-            height: 35px;
-            background-color: #050505;
-            border-radius: 18px;
-            margin: 5px auto;
-            border: 2px solid #444;
-            box-shadow: inset 0 4px 8px rgba(0,0,0,0.9);
-            position: relative;
-        }
-        .laser-line {
-            width: 100%;
-            height: 2px;
-            background-color: #ff3333;
-            position: absolute;
-            top: 50%;
-            box-shadow: 0 0 4px #ff3333;
-            animation: pulse 1s infinite alternate;
-        }
-        @keyframes pulse {
-            0% { opacity: 0.4; } 100% { opacity: 1; }
-        }
-        .hw-dispenser {
-            width: 140px;
-            height: 50px;
-            background-color: #050505;
-            border-radius: 6px;
-            margin: 5px auto;
-            position: relative;
-            border: 1px solid #333;
-        }
-        .dispensed-item {
-            width: 85%;
-            height: 18px;
-            background-color: #7d6bb3;
-            color: white;
-            font-size: 7.5pt;
-            text-align: center;
-            line-height: 18px;
-            position: absolute;
-            bottom: 6px;
-            left: 7.5%;
-            border-radius: 3px;
-            animation: slideDown 0.5s ease-out;
-            display: none;
-            font-weight: bold;
-        }
-        @keyframes slideDown {
-            0% { transform: translateY(-25px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-        .scanning-loader {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border: 2px solid #7d6bb3;
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 0.8s linear infinite;
-            margin-left: 8px;
-            vertical-align: middle;
-        }
+        * { box-sizing: border-box; font-family: 'Helvetica Neue', Arial, sans-serif; }
+        body { background-color: #f4f4f6; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .totem-container { width: 420px; background-color: #1a1a1a; border-radius: 24px; padding: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 4px solid #333; }
+        .screen { background-color: #ffffff; width: 100%; height: 520px; border-radius: 12px; overflow: hidden; position: relative; display: flex; flex-direction: column; color: #111; }
+        .screen-header { background-color: #000000; color: #ffffff; padding: 15px; text-align: center; font-size: 14pt; font-weight: bold; letter-spacing: 2px; }
+        .screen-content { padding: 20px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .welcome-title { font-size: 18pt; text-align: center; margin-top: 30px; color: #000; font-weight: 300; letter-spacing: 1px; }
+        .welcome-subtitle { font-size: 10pt; text-align: center; color: #666; margin-bottom: 25px; }
+        .btn-primary { background-color: #000; color: #fff; border: none; padding: 14px; border-radius: 6px; font-size: 11pt; cursor: pointer; width: 100%; margin-bottom: 5px; font-weight: bold; }
+        .btn-primary:disabled { background-color: #ccc; cursor: not-allowed; }
+        .counter-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 9.5pt; }
+        .counter-table th { background-color: #f0f0f0; padding: 8px; text-align: left; border-bottom: 2px solid #ddd; }
+        .counter-table td { padding: 8px; border-bottom: 1px solid #eee; }
+        .total-badge { background-color: #f4f0fa; border: 1px solid #7d6bb3; border-radius: 6px; padding: 10px; text-align: center; font-weight: bold; margin-bottom: 15px; color: #5c4d8c; }
+        .btn-secondary { background-color: #fff; border: 1px solid #000; padding: 10px; border-radius: 6px; font-size: 9pt; cursor: pointer; width: 100%; margin-top: 5px; }
+        .reward-box { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #eee; }
+        .hw-opening { width: 120px; height: 35px; background-color: #050505; border-radius: 18px; margin: 5px auto; border: 2px solid #444; position: relative; }
+        .laser-line { width: 100%; height: 2px; background-color: #ff3333; position: absolute; top: 50%; opacity: 0.7; }
+        .scanning-loader { display: inline-block; width: 12px; height: 12px; border: 2px solid #7d6bb3; border-radius: 50%; border-top-color: transparent; animation: spin 0.8s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
@@ -230,229 +36,85 @@
         <div id="screen-welcome" class="screen-content">
             <div>
                 <div class="welcome-title">REVIERTE EL CICLO</div>
-                <div class="welcome-subtitle">Línea Trío • Polvo Traslúcido • Paleta Correctora</div>
+                <div class="welcome-subtitle">Recicla, Reutiliza, Recompensa</div>
                 <button class="btn-primary" onclick="changeScreen('deposit')">Iniciar Depósito</button>
-            </div>
-            <div class="eco-guide">
-                <strong>Eco-Consejo de Ciclos:</strong> Recuerda que tu envase principal tolera aproximadamente 4 recargas si lo cuidas bien. ¡Si ya cumplió su vida útil, deposítalo completo para transformarlo!
             </div>
         </div>
 
         <div id="screen-deposit" class="screen-content" style="display: none;">
             <div>
-                <div style="font-size: 10.5pt; font-weight: bold; margin-bottom: 12px; text-align: center; color: #333;">
-                    <span id="scan-status">ESPERANDO RESIDUOS...</span>
-                    <span id="loader" class="scanning-loader" style="display:none;"></span>
-                </div>
-                
+                <div style="font-weight: bold; text-align: center; margin-bottom: 10px;"><span id="scan-status">ESPERANDO RESIDUOS...</span></div>
                 <table class="counter-table">
-                    <thead>
-                        <tr>
-                            <th>Componente Escaneado</th>
-                            <th style="text-align: center;">Cant.</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>Bandejas de Maquillaje Refill (Cualquiera)</td><td id="row-b" style="text-align: center; font-weight: bold;">0</td></tr>
-                        <tr><td>Envase Trío (Cuerpo + Tapa)</td><td id="row-trio" style="text-align: center; font-weight: bold;">0</td></tr>
-                        <tr><td>Envase Polvo Traslúcido</td><td id="row-polvo" style="text-align: center; font-weight: bold;">0</td></tr>
-                        <tr><td>Envase Paleta Correctora</td><td id="row-paleta" style="text-align: center; font-weight: bold;">0</td></tr>
-                    </tbody>
+                    <tr><td>Total Artículos</td><td id="total-count" style="text-align: right; font-weight: bold;">0</td></tr>
                 </table>
-
-                <div class="total-badge">
-                    Total Acumulado: <span id="total-bandejas">0</span> Bandejas | <span id="total-envases">0</span> Envases
-                </div>
+                <div class="total-badge">Total Acumulado: <span id="total-sum">0</span> unidades</div>
             </div>
-            
-            <button id="btn-confirmar" class="btn-primary btn-disabled" disabled onclick="changeScreen('canje')">Finalizar y Elegir Premio</button>
+            <button id="btn-confirmar" class="btn-primary" disabled onclick="changeScreen('canje')">Finalizar y Canjear</button>
         </div>
 
         <div id="screen-canje" class="screen-content" style="display: none;">
             <div>
-                <div style="font-size: 11pt; font-weight: bold; margin-bottom: 15px; text-align: center;">RECOMPENSAS DISPONIBLES</div>
+                <div style="font-weight: bold; text-align: center; margin-bottom: 15px;">SELECCIONA TU RECOMPENSA</div>
                 
-                <div style="margin-bottom: 15px;">
-                    <button id="btn-prize-refill" class="btn-primary btn-disabled" disabled style="margin-bottom: 10px;" onclick="dispense('Refill Cosmético')">
-                        Canjear 1 Refill Nuevo<br><span style="font-size: 8pt; font-weight: normal;">(Requiere 2 Bandejas)</span>
-                    </button>
-                    
-                    <button id="btn-prize-objeto" class="btn-primary btn-disabled" disabled onclick="dispense('Objeto Larga Vida')">
-                        Canjear Objeto de Larga Vida<br><span style="font-size: 8pt; font-weight: normal;">(1 Envase o 4 Bandejas cualquiera)</span>
-                    </button>
+                <div id="nivel-1" style="display:none;" class="reward-box">
+                    <button class="btn-primary" onclick="dispense('Refill Gratuito')">🎁 Canjear 1 Refill Gratis</button>
+                </div>
+                <div id="nivel-2" style="display:none;" class="reward-box">
+                    <div style="margin-bottom: 8px; font-size: 9pt;">Elige tu premio:</div>
+                    <button class="btn-secondary" onclick="dispense('Muestra Gratis')">Muestra Gratis</button>
+                    <button class="btn-secondary" onclick="dispense('Espejo de Bolsillo')">Espejo de Bolsillo</button>
+                </div>
+                <div id="nivel-3" style="display:none;" class="reward-box">
+                    <button class="btn-primary" style="background:#7d6bb3;" onclick="dispense('Cosmetiquero Reciclado')">👜 Canjear Cosmetiquero</button>
                 </div>
             </div>
-            <button class="btn-secondary" style="width: 100%; border: none; color: #666;" onclick="resetAll()">Cancelar y Reiniciar</button>
+            <button class="btn-secondary" onclick="resetAll()">Cancelar</button>
         </div>
 
-        <div id="screen-dispensing" class="screen-content" style="display: none; justify-content: center; align-items: center; text-align: center;">
-            <div>
-                <div style="font-size: 24pt; margin-bottom: 15px;">⬇️</div>
-                <div style="font-size: 13pt; font-weight: bold; margin-bottom: 12px;" id="dispense-msg">PROCESANDO...</div>
-                <div style="font-size: 10.5pt; color: #27ae60; font-weight: bold; background-color: #e8f8f0; padding: 15px; border-radius: 8px; border: 1px solid #27ae60;" id="retire-alert">
-                    ¡ACCIÓN COMPLETADA!<br><br>POR FAVOR, RETIRA TU PRODUCTO DE LA COMPUERTA INFERIOR
-                </div>
-<div id="screen-canje" class="screen-content" style="display: none;">
-    <div>
-        <div style="font-size: 11pt; font-weight: bold; margin-bottom: 15px; text-align: center;">TUS RECOMPENSAS</div>
-        
-        <!-- Nivel 1: 1 a 2 envases -->
-        <div id="nivel-1" style="display:none; margin-bottom: 10px;">
-            <button class="btn-primary" onclick="dispense('Refill Gratuito')">Canjear 1 Refill (Nivel 1)</button>
-        </div>
-
-        <!-- Nivel 2: 3 a 4 envases (Selección Independiente) -->
-        <div id="nivel-2" style="display:none; margin-bottom: 10px; padding: 10px; background: #f9f9f9; border-radius: 6px;">
-            <div style="font-size: 9pt; margin-bottom: 5px; text-align: center;">Elige tus recompensas (Nivel 2):</div>
-            <button class="btn-secondary" style="width: 100%; margin-bottom: 5px;" onclick="dispense('Muestra Gratis')">🎁 Muestra Gratis</button>
-            <button class="btn-secondary" style="width: 100%;" onclick="dispense('Espejo de Bolsillo')">🪞 Espejo de Bolsillo</button>
-        </div>
-
-        <!-- Nivel 3: 5 o más envases -->
-        <div id="nivel-3" style="display:none; margin-bottom: 10px;">
-            <button class="btn-primary" style="background-color: #7d6bb3;" onclick="dispense('Cosmetiquero Reciclado')">Canjear Cosmetiquero (Nivel 3)</button>
-        </div>
-    </div>
-    <button class="btn-secondary" style="width: 100%; border: none; color: #666; margin-top: 10px;" onclick="resetAll()">Cancelar</button>
-</div>
-            </div>
+        <div id="screen-dispensing" class="screen-content" style="display: none; justify-content: center; text-align: center;">
+            <div id="dispense-msg" style="font-weight: bold; font-size: 14pt;">PROCESANDO...</div>
         </div>
     </div>
 
-    <div class="hardware-slots">
-        <div style="text-align: center; width: 50%;">
-            <div class="hw-label">Buzón Automatizado</div>
-            <div class="hw-opening"><div class="laser-line"></div></div>
-            <p style="font-size: 7.5pt; color: #aaa; margin: 4px 0;">Simula dejar caer tus residuos:</p>
-            <div style="display: flex; flex-direction: column; gap: 4px; padding: 0 10px;">
-                <button class="btn-secondary" id="hw-in-b" style="padding: 5px; font-size: 7.5pt;" onclick="dropItem('b')" disabled>+ Depositar Bandeja Refill</button>
-                <button class="btn-secondary" id="hw-in-t" style="padding: 5px; font-size: 7.5pt;" onclick="dropItem('trio')" disabled>+ Depositar Envase Trío</button>
-                <button class="btn-secondary" id="hw-in-p" style="padding: 5px; font-size: 7.5pt;" onclick="dropItem('polvo')" disabled>+ Depositar Envase Polvo</button>
-                <button class="btn-secondary" id="hw-in-c" style="padding: 5px; font-size: 7.5pt;" onclick="dropItem('paleta')" disabled>+ Depositar Envase Paleta</button>
-            </div>
-        </div>
-        
-        <div style="text-align: center; width: 45%;">
-            <div class="hw-label">Dispensador</div>
-            <div class="hw-dispenser">
-                <div id="physical-product" class="dispensed-item">REFILL</div>
-            </div>
-            <button class="btn-secondary" id="btn-collect" style="padding: 6px 10px; font-size: 8pt; display: none; background-color: #27ae60; color: white; border: none; margin-top: 8px;" onclick="collectProduct()">[Recoger de la Compuerta]</button>
-        </div>
+    <div class="hardware-slots" style="padding-top:20px; display:flex; justify-content:center;">
+        <button class="btn-secondary" onclick="dropItem()">+ Depositar Artículo Petrizzio</button>
     </div>
 </div>
 
 <script>
-    let bCount = 0;
-    let trioCount = 0;
-    let polvoCount = 0;
-    let paletaCount = 0;
+    let totalItems = 0;
 
-    let totalBandejas = 0;
-    let totalEnvases = 0;
-
-    function changeScreen(screenName) {
-        document.getElementById('screen-welcome').style.display = 'none';
-        document.getElementById('screen-deposit').style.display = 'none';
-        document.getElementById('screen-canje').style.display = 'none';
-        document.getElementById('screen-dispensing').style.display = 'none';
-
-        document.getElementById('hw-in-b').disabled = true;
-        document.getElementById('hw-in-t').disabled = true;
-        document.getElementById('hw-in-p').disabled = true;
-        document.getElementById('hw-in-c').disabled = true;
-
-        if(screenName === 'welcome') {
-            document.getElementById('screen-welcome').style.display = 'flex';
-        } else if(screenName === 'deposit') {
-            document.getElementById('screen-deposit').style.display = 'flex';
-            document.getElementById('hw-in-b').disabled = false;
-            document.getElementById('hw-in-t').disabled = false;
-            document.getElementById('hw-in-p').disabled = false;
-            document.getElementById('hw-in-c').disabled = false;
-        } else if(screenName === 'canje') {
-            document.getElementById('screen-canje').style.display = 'flex';
-            updatePrizeButtons();
-        } else if(screenName === 'dispensing') {
-            document.getElementById('screen-dispensing').style.display = 'flex';
-        }
+    function changeScreen(s) {
+        document.querySelectorAll('.screen-content').forEach(el => el.style.display = 'none');
+        document.getElementById('screen-' + s).style.display = 'flex';
+        if(s === 'canje') updatePrizeButtons();
     }
 
-    function dropItem(itemType) {
-        // Simular el retraso del sensor óptico real al reconocer el objeto
-        document.getElementById('scan-status').innerText = "ESCANEANDO CÓDIGO...";
-        document.getElementById('loader').style.display = 'inline-block';
-        
-        setTimeout(() => {
-            if(itemType === 'b') {
-                bCount++;
-                totalBandejas++;
-                document.getElementById('row-b').innerText = bCount;
-            } else if(itemType === 'trio') {
-                trioCount++;
-                totalEnvases++;
-                document.getElementById('row-trio').innerText = trioCount;
-            } else if(itemType === 'polvo') {
-                polvoCount++;
-                totalEnvases++;
-                document.getElementById('row-polvo').innerText = polvoCount;
-            } else if(itemType === 'paleta') {
-                paletaCount++;
-                totalEnvases++;
-                document.getElementById('row-paleta').innerText = paletaCount;
-            }
-
-            document.getElementById('total-bandejas').innerText = totalBandejas;
-            document.getElementById('total-envases').innerText = totalEnvases;
-            
-            document.getElementById('scan-status').innerText = "¡COMPONENTE DETECTADO!";
-            document.getElementById('loader').style.display = 'none';
-
-            let btn = document.getElementById('btn-confirmar');
-            btn.classList.remove('btn-disabled');
-            btn.disabled = false;
-        }, 400); // 400ms de retraso realista del sensor
+    function dropItem() {
+        totalItems++;
+        document.getElementById('total-count').innerText = totalItems;
+        document.getElementById('total-sum').innerText = totalItems;
+        document.getElementById('btn-confirmar').disabled = false;
+        document.getElementById('scan-status').innerText = "¡ARTÍCULO DETECTADO!";
     }
 
     function updatePrizeButtons() {
-        const total = totalEnvases + totalBandejas; // Asumiendo que ambos cuentan para el total
-        
-        document.getElementById('nivel-1').style.display = (total >= 1 && total <= 2) ? 'block' : 'none';
-        document.getElementById('nivel-2').style.display = (total >= 3 && total <= 4) ? 'block' : 'none';
-        document.getElementById('nivel-3').style.display = (total >= 5) ? 'block' : 'none';
+        document.getElementById('nivel-1').style.display = (totalItems >= 1 && totalItems <= 2) ? 'block' : 'none';
+        document.getElementById('nivel-2').style.display = (totalItems >= 3 && totalItems <= 4) ? 'block' : 'none';
+        document.getElementById('nivel-3').style.display = (totalItems >= 5) ? 'block' : 'none';
     }
 
-    function dispense(prizeName) {
+    function dispense(p) {
         changeScreen('dispensing');
-        document.getElementById('dispense-msg').innerText = "DISPENSANDO: " + prizeName.toUpperCase();
-        
-        let pProd = document.getElementById('physical-product');
-        pProd.innerText = prizeName === 'Refill Cosmético' ? 'REFILL' : 'OBJETO ECO';
-        pProd.style.display = 'block';
-        
-        document.getElementById('btn-collect').style.display = 'inline-block';
-    }
-
-    function collectProduct() {
-        document.getElementById('physical-product').style.display = 'none';
-        document.getElementById('btn-collect').style.display = 'none';
-        resetAll();
+        document.getElementById('dispense-msg').innerText = "DISPENSANDO: " + p;
+        setTimeout(resetAll, 3000);
     }
 
     function resetAll() {
-        bCount = 0; trioCount = 0; polvoCount = 0; paletaCount = 0;
-        totalBandejas = 0; totalEnvases = 0;
-        
-        document.getElementById('row-b').innerText = "0";
-        document.getElementById('row-trio').innerText = "0";
-        document.getElementById('row-polvo').innerText = "0";
-        document.getElementById('row-paleta').innerText = "0";
-        document.getElementById('total-bandejas').innerText = "0";
-        document.getElementById('total-envases').innerText = "0";
-        
-        let btn = document.getElementById('btn-confirmar');
-        btn.classList.add('btn-disabled');
-        btn.disabled = true;
+        totalItems = 0;
+        document.getElementById('total-count').innerText = "0";
+        document.getElementById('total-sum').innerText = "0";
+        document.getElementById('btn-confirmar').disabled = true;
         changeScreen('welcome');
     }
 </script>
