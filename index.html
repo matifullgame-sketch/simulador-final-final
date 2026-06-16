@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador Tótem Petrizzio RVM v3.1</title>
+    <title>Simulador Tótem Petrizzio RVM v3</title>
     <style>
         * { box-sizing: border-box; font-family: 'Helvetica Neue', Arial, sans-serif; }
         body { background-color: #f4f4f6; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
@@ -21,6 +21,10 @@
         .total-badge { background-color: #f4f0fa; border: 1px solid #7d6bb3; border-radius: 6px; padding: 10px; text-align: center; font-weight: bold; margin-bottom: 15px; color: #5c4d8c; }
         .btn-secondary { background-color: #fff; border: 1px solid #000; padding: 10px; border-radius: 6px; font-size: 9pt; cursor: pointer; width: 100%; margin-top: 5px; }
         .reward-box { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #eee; }
+        .hw-opening { width: 120px; height: 35px; background-color: #050505; border-radius: 18px; margin: 5px auto; border: 2px solid #444; position: relative; }
+        .laser-line { width: 100%; height: 2px; background-color: #ff3333; position: absolute; top: 50%; opacity: 0.7; }
+        .scanning-loader { display: inline-block; width: 12px; height: 12px; border: 2px solid #7d6bb3; border-radius: 50%; border-top-color: transparent; animation: spin 0.8s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -52,20 +56,14 @@
             <div>
                 <div style="font-weight: bold; text-align: center; margin-bottom: 15px;">SELECCIONA TU RECOMPENSA</div>
                 
-                <!-- Nivel 1 con Selección de Producto -->
                 <div id="nivel-1" style="display:none;" class="reward-box">
-                    <div style="margin-bottom: 8px; font-weight: bold; font-size: 9pt;">Elige tu Refill:</div>
-                    <button class="btn-secondary" onclick="dispense('Refill: Maquillaje Trío')">Maquillaje Trío</button>
-                    <button class="btn-secondary" onclick="dispense('Refill: Polvo Traslúcido')">Polvo Traslúcido</button>
-                    <button class="btn-secondary" onclick="dispense('Refill: Paleta Correctora')">Paleta Correctora</button>
+                    <button class="btn-primary" onclick="dispense('Refill Gratuito')">🎁 Canjear 1 Refill Gratis</button>
                 </div>
-
                 <div id="nivel-2" style="display:none;" class="reward-box">
-                    <div style="margin-bottom: 8px; font-size: 9pt; font-weight: bold;">Elige tu premio:</div>
+                    <div style="margin-bottom: 8px; font-size: 9pt;">Elige tu premio:</div>
                     <button class="btn-secondary" onclick="dispense('Muestra Gratis')">Muestra Gratis</button>
                     <button class="btn-secondary" onclick="dispense('Espejo de Bolsillo')">Espejo de Bolsillo</button>
                 </div>
-                
                 <div id="nivel-3" style="display:none;" class="reward-box">
                     <button class="btn-primary" style="background:#7d6bb3;" onclick="dispense('Cosmetiquero Reciclado')">👜 Canjear Cosmetiquero</button>
                 </div>
@@ -117,7 +115,6 @@
         document.getElementById('total-count').innerText = "0";
         document.getElementById('total-sum').innerText = "0";
         document.getElementById('btn-confirmar').disabled = true;
-        document.getElementById('scan-status').innerText = "ESPERANDO RESIDUOS...";
         changeScreen('welcome');
     }
 </script>
