@@ -3,302 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Tótem Inteligente - Petrizzio Eco</title>
+    <title>Tótem Petrizzio RVM - Profesional</title>
     <style>
-        :root {
-            --bg-principal: #121212;
-            --bg-totem: #1a1a1a;
-            --mint-eco: #00ffcc;
-            --gold-premium: #ffcc00;
-            --pink-max: #ff3366;
-            --gris-borde: #333333;
-        }
-
-        body {
-            background-color: var(--bg-principal);
-            color: #ffffff;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .interfaz-totem {
-            width: 100%;
-            max-width: 420px;
-            background-color: var(--bg-totem);
-            border: 2px solid var(--gris-borde);
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.5);
-            box-sizing: border-box;
-        }
-
-        .header-marca {
-            text-align: center;
-            border-bottom: 1px solid var(--gris-borde);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
-
-        .header-marca h1 {
-            font-size: 1.8rem;
-            letter-spacing: 2px;
-            margin: 0;
-            color: #ffffff;
-        }
-
-        .tagline {
-            font-size: 0.85rem;
-            color: var(--mint-eco);
-            text-transform: uppercase;
-            margin-top: 5px;
-            letter-spacing: 1px;
-        }
-
-        .pantalla-contenido {
-            min-height: 320px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .btn-accion {
-            background-color: var(--mint-eco);
-            color: #121212;
-            border: none;
-            padding: 15px 20px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(0, 255, 204, 0.2);
-        }
-
-        .btn-accion:hover {
-            background-color: #00d4aa;
-            transform: translateY(-2px);
-        }
-
-        .btn-secundario {
-            background-color: #2a2a2a;
-            color: #ffffff;
-            border: 1px solid #444;
-            padding: 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.2s;
-        }
-
-        .btn-secundario:hover {
-            background-color: #383838;
-        }
-
-        .contador-envases {
-            background: #222;
-            border: 1px solid var(--gris-borde);
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .contador-numero {
-            font-size: 3rem;
-            font-weight: bold;
-            color: var(--mint-eco);
-            display: block;
-            line-height: 1;
-            margin-top: 5px;
-        }
-
-        /* Tarjetas de Selección Múltiple */
-        .grid-seleccion {
-            display: flex;
-            gap: 12px;
-            margin-top: 15px;
-        }
-
-        .tarjeta-opcion {
-            flex: 1;
-            background: #222;
-            border: 1px solid #444;
-            padding: 15px 10px;
-            border-radius: 8px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .tarjeta-opcion span {
-            font-size: 2rem;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .tarjeta-opcion h4 {
-            margin: 5px 0;
-            font-size: 0.95rem;
-        }
-
-        .tarjeta-opcion p {
-            font-size: 0.75rem;
-            color: #aaa;
-            margin: 0 0 12px 0;
-            min-height: 36px;
-        }
-
-        .btn-canje-tarjeta {
-            background: var(--gold-premium);
-            color: #121212;
-            border: none;
-            padding: 10px;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: background 0.2s;
-        }
-
-        .btn-canje-tarjeta:hover {
-            background: #e6b800;
-        }
-
-        .btn-canje-tarjeta:disabled {
-            background: #444;
-            color: #888;
-            cursor: not-allowed;
-        }
+        * { box-sizing: border-box; font-family: 'Helvetica Neue', Arial, sans-serif; }
+        body { background-color: #f4f4f6; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .totem-container { width: 420px; background-color: #1a1a1a; border-radius: 24px; padding: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); border: 4px solid #333; }
+        .screen { background-color: #ffffff; width: 100%; height: 580px; border-radius: 12px; overflow: hidden; position: relative; display: flex; flex-direction: column; color: #111; }
+        .screen-header { background-color: #000; color: #fff; padding: 15px; text-align: center; font-weight: bold; letter-spacing: 2px; }
+        .screen-content { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+        .btn-primary { background: #000; color: #fff; border: none; padding: 14px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; text-transform: uppercase; margin-top: 10px; }
+        .btn-secondary { background: #fff; border: 1px solid #000; padding: 10px; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 8px; font-weight: bold; }
+        .reward-group { background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee; margin-top: 10px; }
+        .counter-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .counter-table td { padding: 8px; border-bottom: 1px solid #ddd; }
+        .total-badge { background: #7d6bb3; color: white; padding: 15px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 1.1em; }
     </style>
 </head>
 <body>
 
-    <div class="interfaz-totem">
-        <div class="header-marca">
-            <h1>PETRIZZIO</h1>
-            <div class="tagline">Ecosistema Sustentable Retail</div>
+<div class="totem-container">
+    <div class="screen">
+        <div class="screen-header">PETRIZZIO SUSTENTABLE</div>
+        
+        <div id="screen-welcome" class="screen-content">
+            <h2 style="text-align:center;">REVIERTE EL CICLO</h2>
+            <p style="text-align:center; color:#666;">Ingresa tus envases y bandejas de maquillaje para obtener recompensas exclusivas.</p>
+            <button class="btn-primary" onclick="changeScreen('deposit')">Iniciar Depósito</button>
         </div>
 
-        <!-- PANTALLA 1: FLUJO DE DEPÓSITO ACTIVO -->
-        <div id="pantalla-deposito" class="pantalla-contenido">
-            <p style="text-align: center; color: #aaa; margin: 0;">Coloque sus envases vacíos de la línea en la boca de depósito del tótem.</p>
+        <div id="screen-deposit" class="screen-content" style="display: none;">
+            <h3>Escaneo de Residuos</h3>
+            <table class="counter-table">
+                <tr><td>Bandejas Refill:</td><td id="count-b">0</td></tr>
+                <tr><td>Envases Trío:</td><td id="count-trio">0</td></tr>
+                <tr><td>Polvo/Paleta:</td><td id="count-base">0</td></tr>
+            </table>
+            <div class="total-badge">Total: <span id="total-count">0</span> unidades</div>
+            <div style="margin-top:20px;">
+                <button class="btn-secondary" onclick="addItem('b')">+ Bandeja</button>
+                <button class="btn-secondary" onclick="addItem('trio')">+ Trío</button>
+                <button class="btn-secondary" onclick="addItem('base')">+ Polvo/Paleta</button>
+            </div>
+            <button id="btn-final" class="btn-primary" disabled onclick="changeScreen('canje')">Canjear Premio</button>
+        </div>
+
+        <div id="screen-canje" class="screen-content" style="display: none; overflow-y: auto;">
+            <h3 style="text-align:center;">Elige tu Recompensa</h3>
             
-            <div class="contador-envases">
-                <span style="font-size: 0.9rem; color: #888; text-transform: uppercase;">Envases Detectados</span>
-                <span id="contador-actual" class="contador-numero">0</span>
+            <div id="nivel-1" class="reward-group" style="display:none;">
+                <strong>Nivel 1 (1-2 envases):</strong>
+                <p>Elige tu Refill:</p>
+                <button class="btn-secondary" onclick="dispense('Refill: Maquillaje Trío')">Maquillaje Trío</button>
+                <button class="btn-secondary" onclick="dispense('Refill: Polvo Traslúcido')">Polvo Traslúcido</button>
+                <button class="btn-secondary" onclick="dispense('Refill: Paleta Correctora')">Paleta Correctora</button>
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-                <button class="btn-accion" onclick="registrarEnvase()">Simular Depósito</button>
-                <button class="btn-secundario" onclick="procesarTerminoSesion()">Finalizar y Solicitar Recompensa</button>
+            <div id="nivel-2" class="reward-group" style="display:none;">
+                <strong>Nivel 2 (3-4 envases):</strong>
+                <button class="btn-secondary" onclick="dispense('Muestra Gratis')">🎁 Muestra Gratis</button>
+                <button class="btn-secondary" onclick="dispense('Espejo de Bolsillo')">🪞 Espejo de Bolsillo</button>
             </div>
+
+            <div id="nivel-3" class="reward-group" style="display:none;">
+                <strong>Nivel 3 (5+ envases):</strong>
+                <button class="btn-primary" style="background:#7d6bb3;" onclick="dispense('Cosmetiquero de Tela')">👜 Cosmetiquero Reciclado</button>
+            </div>
+            <button class="btn-secondary" style="border:none; color:red;" onclick="resetAll()">Cancelar</button>
         </div>
 
-        <!-- PANTALLA 2: DESPLIEGUE DINÁMICO DE RECOMPENSAS ESCALONADAS -->
-        <div id="pantalla-recompensas" class="pantalla-contenido" style="display: none;">
-            <div style="text-align: center; margin-bottom: 15px;">
-                <h2 style="color: var(--mint-eco); margin: 0 0 5px 0; font-size: 1.4rem; text-transform: uppercase;">Depósito Finalizado</h2>
-                <p style="margin: 0; color: #ccc;">Procesando incentivos para <strong id="total-reciclado-txt" style="color: var(--mint-eco);">0</strong> unidades.</p>
-            </div>
-
-            <!-- Contenedor donde se inyecta la lógica de negocio -->
-            <div id="contenedor-dinamico-premios"></div>
-
-            <button class="btn-secundario" onclick="reiniciarTotem()" style="margin-top: 15px; width: 100%;">Nueva Sesión / Salir</button>
+        <div id="screen-dispensing" class="screen-content" style="display: none; justify-content:center; text-align:center;">
+            <h2 id="msg-dispensing">Procesando...</h2>
         </div>
     </div>
+</div>
 
-    <script>
-        let contadorEnvasesGlobal = 0;
+<script>
+    let b=0, trio=0, base=0;
 
-        function registrarEnvase() {
-            contadorEnvasesGlobal++;
-            document.getElementById('contador-actual').innerText = contadorEnvasesGlobal;
-        }
+    function changeScreen(s) {
+        document.querySelectorAll('.screen-content').forEach(el => el.style.display = 'none');
+        document.getElementById('screen-' + s).style.display = 'flex';
+        if(s === 'canje') updateRewards();
+    }
 
-        function procesarTerminoSesion() {
-            if (contadorEnvasesGlobal === 0) {
-                alert("Por favor, simule depositar al menos un envase primero.");
-                return;
-            }
-            
-            document.getElementById('pantalla-deposito').style.display = 'none';
-            document.getElementById('pantalla-recompensas').style.display = 'flex';
-            
-            ejecutarLogicaRecompensas(contadorEnvasesGlobal);
-        }
+    function addItem(type) {
+        if(type==='b') b++; else if(type==='trio') trio++; else base++;
+        let total = b + trio + base;
+        document.getElementById('count-b').innerText = b;
+        document.getElementById('count-trio').innerText = trio;
+        document.getElementById('count-base').innerText = base;
+        document.getElementById('total-count').innerText = total;
+        document.getElementById('btn-final').disabled = false;
+    }
 
-        function ejecutarLogicaRecompensas(unidades) {
-            document.getElementById('total-reciclado-txt').innerText = unidades;
-            const contenedor = document.getElementById('contenedor-dinamico-premios');
-            contenedor.innerHTML = '';
+    function updateRewards() {
+        let total = b + trio + base;
+        document.getElementById('nivel-1').style.display = (total >= 1 && total <= 2) ? 'block' : 'none';
+        document.getElementById('nivel-2').style.display = (total >= 3 && total <= 4) ? 'block' : 'none';
+        document.getElementById('nivel-3').style.display = (total >= 5) ? 'block' : 'none';
+    }
 
-            // TRAMO INTERMEDIO (Ajustado para que aparezca desde 1 envase y pruebes los botones)
-            if (unidades >= 1 && unidades <= 3) {
-                contenedor.innerHTML = `
-                    <div style="border: 2px solid var(--gold-premium); background: rgba(255,204,0,0.03); padding: 15px; border-radius: 8px;">
-                        <h3 style="color: var(--gold-premium); margin-top: 0; text-align: center; font-size: 1.1rem;">NIVEL 1: SELECCIÓN DE RECOMPENSA</h3>
-                        <p style="font-size: 0.85rem; text-align: center; margin: 0 0 15px 0; color: #ccc;">Presiona la opción táctil que deseas que el tótem dispense de forma independiente:</p>
-                        
-                        <div class="grid-seleccion">
-                            <div class="tarjeta-opcion">
-                                <div>
-                                    <span>🧴</span>
-                                    <h4>Muestra Gratis</h4>
-                                    <p>Sachet de cremas o bases de nuevos lanzamientos.</p>
-                                </div>
-                                <button class="btn-canje-tarjeta" onclick="activarMecanismoDispensador('Muestra Gratis')">Elegir Muestra</button>
-                            </div>
-                            
-                            <div class="tarjeta-opcion">
-                                <div>
-                                    <span>🪞</span>
-                                    <h4>Espejo Eco</h4>
-                                    <p>Espejo compacto de bolsillo fabricado en bambú.</p>
-                                </div>
-                                <button class="btn-canje-tarjeta" onclick="activarMecanismoDispensador('Espejo de Bolsillo Eco')">Elegir Espejo</button>
-                            </div>
-                        </div>
-                        <div id="feedback-hardware" style="margin-top: 15px; font-weight: bold; text-align: center; color: var(--gold-premium); font-size: 0.9rem;"></div>
-                    </div>
-                `;
-            }
-            // TRAMO ALTO: ECO-REFILL DIRECTO Y COSMETIQUERO (4 o más envases)
-            else if (unidades >= 4) {
-                contenedor.innerHTML = `
-                    <div style="border: 2px solid var(--mint-eco); background: rgba(0,255,204,0.05); padding: 20px; border-radius: 8px; text-align: center;">
-                        <h3 style="color: var(--mint-eco); margin-top: 0; font-size: 1.1rem;">NIVEL MÁXIMO: ECO-REFILL + COSMETIQUERO</h3>
-                        <p style="font-size: 0.9rem; color: #ddd;">¡Has completado el ciclo completo de economía circular!</p>
-                        <div style="font-size: 2.5rem; margin: 10px 0;">♻️👝</div>
-                        <p style="font-size: 1rem; margin-bottom: 0;"><strong>¡Bandeja de Refill y Cosmetiquero Desbloqueados!</strong></p>
-                        <small style="color: #888; display:block; margin-top:10px;">Retira tus productos directamente en las compuertas inferiores del equipo.</small>
-                    </div>
-                `;
-            }
-        }
+    function dispense(item) {
+        changeScreen('dispensing');
+        document.getElementById('msg-dispensing').innerText = "DISPENSANDO: " + item;
+        setTimeout(() => { alert("Retira tu producto de la compuerta inferior."); resetAll(); }, 2000);
+    }
 
-        function activarMecanismoDispensador(objetoElegido) {
-            // Este texto aparecerá abajo de las tarjetas confirmando que el botón SÍ funciona
-            document.getElementById('feedback-hardware').innerHTML = `⚙️ Conexión exitosa: Despachando <strong>${objetoElegido}</strong>...`;
-            
-            // Bloquea los botones momentáneamente para simular que el hardware físico está trabajando
-            const botonesCanje = document.querySelectorAll('.btn-canje-tarjeta');
-            botonesCanje.forEach(btn => btn.disabled = true);
-        }
+    function resetAll() {
+        b=0; trio=0; base=0;
+        document.getElementById('total-count').innerText = "0";
+        document.getElementById('btn-final').disabled = true;
+        changeScreen('welcome');
+    }
+</script>
 
-        function reiniciarTotem() {
-            contadorEnvasesGlobal = 0;
-            document.getElementById('contador-actual').innerText = '0';
-            document.getElementById('pantalla-recompensas').style.display = 'none';
-            document.getElementById('pantalla-deposito').style.display = 'flex';
-        }
-    </script>
 </body>
 </html>
