@@ -159,11 +159,16 @@
             background: var(--gold-premium);
             color: #121212;
             border: none;
-            padding: 8px;
+            padding: 10px;
             font-weight: bold;
             border-radius: 4px;
             cursor: pointer;
             font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+
+        .btn-canje-tarjeta:hover {
+            background: #e6b800;
         }
 
         .btn-canje-tarjeta:disabled {
@@ -235,24 +240,12 @@
             const contenedor = document.getElementById('contenedor-dinamico-premios');
             contenedor.innerHTML = '';
 
-            // TRAMO 1: ACCESIBILIDAD AL REFILL DIRECTO (1 a 2 envases)
-            if (unidades >= 1 && unidades <= 2) {
-                contenedor.innerHTML = `
-                    <div style="border: 2px solid var(--mint-eco); background: rgba(0,255,204,0.05); padding: 20px; border-radius: 8px; text-align: center;">
-                        <h3 style="color: var(--mint-eco); margin-top: 0; font-size: 1.1rem;">NIVEL 1 ACUMULADO: ECO-REFILL</h3>
-                        <p style="font-size: 0.9rem; color: #ddd;">Aseguramos la continuidad de tu contenedor principal Petrizzio.</p>
-                        <div style="font-size: 2.5rem; margin: 10px 0;">♻️</div>
-                        <p style="font-size: 1rem; margin-bottom: 0;"><strong>¡Bandeja de Refill Gratis Desbloqueada!</strong></p>
-                        <small style="color: #888; display:block; margin-top:10px;">Retira el componente directamente en la compuerta inferior.</small>
-                    </div>
-                `;
-            }
-            // TRAMO 2: SELECCIÓN INDEPENDIENTE DE ACCESORIOS (3 a 4 envases)
-            else if (unidades >= 3 && unidades <= 4) {
+            // TRAMO INTERMEDIO (Ajustado para que aparezca desde 1 envase y pruebes los botones)
+            if (unidades >= 1 && unidades <= 3) {
                 contenedor.innerHTML = `
                     <div style="border: 2px solid var(--gold-premium); background: rgba(255,204,0,0.03); padding: 15px; border-radius: 8px;">
-                        <h3 style="color: var(--gold-premium); margin-top: 0; text-align: center; font-size: 1.1rem;">NIVEL 2: SELECCIÓN DE ACCESORIOS</h3>
-                        <p style="font-size: 0.85rem; text-align: center; margin: 0 0 15px 0; color: #ccc;">Selecciona en la pantalla táctil el incentivo complementario que prefieras:</p>
+                        <h3 style="color: var(--gold-premium); margin-top: 0; text-align: center; font-size: 1.1rem;">NIVEL 1: SELECCIÓN DE RECOMPENSA</h3>
+                        <p style="font-size: 0.85rem; text-align: center; margin: 0 0 15px 0; color: #ccc;">Presiona la opción táctil que deseas que el tótem dispense de forma independiente:</p>
                         
                         <div class="grid-seleccion">
                             <div class="tarjeta-opcion">
@@ -277,24 +270,25 @@
                     </div>
                 `;
             }
-            // TRAMO 3: RECOMPENSA DE ALTO VOLUMEN (5 o más envases)
-            else if (unidades >= 5) {
+            // TRAMO ALTO: ECO-REFILL DIRECTO Y COSMETIQUERO (4 o más envases)
+            else if (unidades >= 4) {
                 contenedor.innerHTML = `
-                    <div style="border: 2px solid var(--pink-max); background: rgba(255,51,102,0.05); padding: 20px; border-radius: 8px; text-align: center;">
-                        <h3 style="color: var(--pink-max); margin-top: 0; font-size: 1.1rem;">👑 NIVEL MAX: EXPERIENCIA ECO-PREMIUM</h3>
-                        <p style="font-size: 0.9rem; color: #ddd;">Premio mayor otorgado a usuarios de alto volumen de reciclaje.</p>
-                        <div style="font-size: 2.5rem; margin: 10px 0;">👝</div>
-                        <p style="font-size: 1rem; margin-bottom: 0;"><strong>Cosmetiquero de Algodón Orgánico</strong></p>
-                        <small style="color: #888; display:block; margin-top:10px;">Dispensando elemento textil por la compuerta automatizada...</small>
+                    <div style="border: 2px solid var(--mint-eco); background: rgba(0,255,204,0.05); padding: 20px; border-radius: 8px; text-align: center;">
+                        <h3 style="color: var(--mint-eco); margin-top: 0; font-size: 1.1rem;">NIVEL MÁXIMO: ECO-REFILL + COSMETIQUERO</h3>
+                        <p style="font-size: 0.9rem; color: #ddd;">¡Has completado el ciclo completo de economía circular!</p>
+                        <div style="font-size: 2.5rem; margin: 10px 0;">♻️👝</div>
+                        <p style="font-size: 1rem; margin-bottom: 0;"><strong>¡Bandeja de Refill y Cosmetiquero Desbloqueados!</strong></p>
+                        <small style="color: #888; display:block; margin-top:10px;">Retira tus productos directamente en las compuertas inferiores del equipo.</small>
                     </div>
                 `;
             }
         }
 
         function activarMecanismoDispensador(objetoElegido) {
-            document.getElementById('feedback-hardware').innerHTML = `⚙️ Señal enviada a compuerta... Despachando <strong>${objetoElegido}</strong>.`;
+            // Este texto aparecerá abajo de las tarjetas confirmando que el botón SÍ funciona
+            document.getElementById('feedback-hardware').innerHTML = `⚙️ Conexión exitosa: Despachando <strong>${objetoElegido}</strong>...`;
             
-            // Simulación física: Desactivar botones de la interfaz táctil tras la elección
+            // Bloquea los botones momentáneamente para simular que el hardware físico está trabajando
             const botonesCanje = document.querySelectorAll('.btn-canje-tarjeta');
             botonesCanje.forEach(btn => btn.disabled = true);
         }
